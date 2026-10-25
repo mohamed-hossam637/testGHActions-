@@ -2,12 +2,15 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "/src"
 jobs:
-  testing:
+  init_node:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "testing is running ...."
-  deploy:
+      - uses: actions/setup-node@v7.1.0
+  run_tests:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "deploying......"
+      - run: "npm jest"
+    
