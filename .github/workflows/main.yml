@@ -1,16 +1,27 @@
-on: 
+name: CI Pipeline
+
+on:
   push:
     branches:
       - main
     paths:
       - "src/**"
+
 jobs:
-  init_node:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-node@v7.1.0
   run_tests:
     runs-on: ubuntu-latest
+
     steps:
-      - run: "npm test"
-    
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Tests
+        run: npm test
